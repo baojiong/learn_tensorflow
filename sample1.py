@@ -10,15 +10,13 @@ a = tf.matmul(x, w1)
 y = tf.matmul(a, w2)
 
 sess = tf.Session()
-#sess.run(w1.initializer)
-#sess.run(w2.initializer)
 init_op = tf.global_variables_initializer()
 sess.run(init_op)
 
 #print(sess.run(y))
 print(sess.run(y, feed_dict={x: [[0.7, 0.9], [0.3, 0.6]]}))
 
-cross_entropy = -tf.reduce_mean(y * tf.log(tf.clip_by_value(y, le-10, 1.0)))
+cross_entropy = -tf.reduce_mean(y * tf.log(tf.clip_by_value(y, 1e-10, 1.0)))
 
 learning_rate = 0.001
 
