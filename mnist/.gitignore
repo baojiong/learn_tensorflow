@@ -1,1 +1,3 @@
 /mnist_samples/
+/models/
+/__pycache__/
