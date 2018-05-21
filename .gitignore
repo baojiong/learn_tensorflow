@@ -2,3 +2,4 @@
 /mnist_samples/
 /saved_models/
 /flower_photos/
+*.tfrecords
