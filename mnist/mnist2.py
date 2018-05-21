@@ -173,15 +173,19 @@ def train(mnist):
         test_feed = {x: mnist.test.images, y_: mnist.test.labels}
 
         for i in range(TRAINING_STEPS):
+            # 7.3 核心 - 运行训练
+            xs, ys = mnist.train.next_batch(BATCH_SIZE)
+            #sess.run(train_op, feed_dict={x: xs, y_: ys})
+            _, loss_value, step = sess.run([train_op, loss, global_step], feed_dict={x: xs, y_: ys})
+
             if i % 1000 == 0:
-                # 7.3 输出验证集上的准确率
+                # 7.4 输出验证集上的准确率
+                print("After %d training step(s), loss on training "
+                      "batch is %g " % (step, loss_value))
+
                 validate_acc = sess.run(accuracy, feed_dict=validate_feed)
                 print("After %d training step(s), validation accuracy "
                       "using average model is %g " % (i, validate_acc))
-
-            # 7.4 核心 - 运行训练
-            xs, ys = mnist.train.next_batch(BATCH_SIZE)
-            sess.run(train_op, feed_dict={x: xs, y_: ys})
 
         # 7.5 输出在测试集的准确率
         test_acc = sess.run(accuracy, feed_dict=test_feed)
