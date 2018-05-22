@@ -12,12 +12,12 @@ BOTTLENECK_TENSOR_SIZE = 2048
 BOTTLENECK_TENSOR_NAME = 'pool_3/_reshape:0'
 JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0'
 
-MODEL_DIR = '/inception_dec_2015'
+MODEL_DIR = 'inception_dec_2015'
 MODEL_FILE = 'tensorflow_inception_graph.pb'
 
-CACHE_DIR = '/tmp/bottleneck'
+CACHE_DIR = 'tmp/bottleneck'
 
-INPUT_DATA = '/flower_photos'
+INPUT_DATA = 'flower_photos'
 
 VALIDATION_PERCENTAGE = 10
 TEST_PERCENTAGE = 10
@@ -76,7 +76,7 @@ def create_image_lists(testing_percentage, validation_percentage):
 
 
 def get_image_path(image_lists, image_dir, label_name, index, category):
-    label_lists = image_lists(label_name)
+    label_lists = image_lists[label_name]
     category_list = label_lists[category]
     mod_index = index % len(category_list)
 
@@ -193,7 +193,7 @@ def main(_):
         final_tensor = tf.nn.softmax(logits)
 
     # 定义交叉熵损失函数
-    cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits, ground_truth_input)
+    cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=ground_truth_input)
     cross_entropy_mean = tf.reduce_mean(cross_entropy)
     train_step = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(cross_entropy_mean)
 
