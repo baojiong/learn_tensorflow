@@ -175,7 +175,7 @@ def train(mnist):
         for i in range(TRAINING_STEPS):
             # 7.3 核心 - 运行训练
             xs, ys = mnist.train.next_batch(BATCH_SIZE)
-            #sess.run(train_op, feed_dict={x: xs, y_: ys})
+            # sess.run(train_op, feed_dict={x: xs, y_: ys})
             _, loss_value, step = sess.run([train_op, loss, global_step], feed_dict={x: xs, y_: ys})
 
             if i % 1000 == 0:
