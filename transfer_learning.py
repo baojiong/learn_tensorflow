@@ -9,6 +9,7 @@ import tensorflow as tf
 from tensorflow.python.platform import gfile
 
 BOTTLENECK_TENSOR_SIZE = 2048
+
 BOTTLENECK_TENSOR_NAME = 'pool_3/_reshape:0'
 JPEG_DATA_TENSOR_NAME = 'DecodeJpeg/contents:0'
 
@@ -47,6 +48,7 @@ def create_image_lists(testing_percentage, validation_percentage):
             file_glob = os.path.join(INPUT_DATA, dir_name, '*.' + extension)
             file_list.extend(glob.glob(file_glob))
 
+            print(file_list)
             if not file_list:
                 continue
 
@@ -72,7 +74,7 @@ def create_image_lists(testing_percentage, validation_percentage):
             'validation': validation_images
         }
 
-        return result
+    return result
 
 
 def get_image_path(image_lists, image_dir, label_name, index, category):
@@ -167,6 +169,7 @@ def get_test_bottlenecks(sess, image_lists, n_classes, jpeg_data_tensor, bottlen
 def main(_):
     # 读取所有图片
     image_lists = create_image_lists(TEST_PERCENTAGE, VALIDATION_PERCENTAGE)
+
     n_classes = len(image_lists.keys())
 
     # 读取已经训练好的 Inception-v3 模型

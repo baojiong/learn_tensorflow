@@ -5,3 +5,4 @@
 /tmp/
 *.tfrecords
 *.jpg
+/log/
